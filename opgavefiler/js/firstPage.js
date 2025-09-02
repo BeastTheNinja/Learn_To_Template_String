@@ -57,4 +57,35 @@ const myForm = document.getElementById('formular');
 const submitButton = document.getElementById('indsend-knap');
 const personList = document.getElementById('person-liste');
 
+// arrow function submitbutton
 
+ submitButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        const myFormFelter = myForm.querySelectorAll('input');
+
+        // Tilføj person til array
+        myPersons.push({
+        navn: myFormFelter[0].value,
+        alder: myFormFelter[1].value,
+        });
+
+        // Sorter listen efter alder og vis den på siden
+        const sorteretMyPersons = sorterEfterAlder(myPersons);
+        showList(sorteretMyPersons);
+        });
+
+        // view code
+        function showList(sorteretMyPersons) {
+        let html = '';
+        sorteretMyPersons.map((person) => {
+        // html template.
+        html += `<li>${person.navn} er ${person.alder} år gammel.</li>`;
+        });
+        personList.innerHTML = html;
+        }
+
+        // Funktion til at sortere listen efter alder
+        function sorterEfterAlder(myPersons) {
+        return myPersons.sort((a, b) => a.alder - b.alder);
+        }
+    
